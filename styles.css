@@ -128,3 +128,15 @@ button:hover{
   position: fixed;
   color: white;
 }
+
+#fin[open]{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  text-align: center;
+  position: absolute;
+  margin: auto;
+  width: 500px;
+  height: 250px;
+  border-radius: 5px;
+}

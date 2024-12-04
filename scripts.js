@@ -4,6 +4,7 @@ let hasFlippedCard = false;
 let lockBoard = false;
 let firstCard, secondCard;
 let nbcoups = 0;
+let nbPair = 0;
 
 function flipCard() {
 
@@ -27,6 +28,8 @@ function flipCard() {
   checkForMatch();
 
   nbcoups++;
+
+  validerRecord();
 }
 
 function checkForMatch() {
@@ -39,7 +42,10 @@ function disableCards() {
   firstCard.removeEventListener('click', flipCard);
   secondCard.removeEventListener('click', flipCard);
 
+  nbPair++;
+
   resetBoard();
+  
 }
 
 function unflipCards() {
@@ -53,7 +59,7 @@ function unflipCards() {
   }, 1500);
 }
 
-function resetBoard() {
+function resetBoard() { 
   [hasFlippedCard, lockBoard] = [false, false];
   [firstCard, secondCard] = [null, null];
 }
@@ -71,6 +77,10 @@ const dialog = document.getElementById('dialog');
 const closeButton = document.querySelector("dialog button");
 const plusAfficher = document.getElementById('plusAfficher');
 const carteTourne = document.getElementById("carteTourne");
+const record = document.getElementById("record");
+const fin = document.getElementById("fin");
+const recordFin = document.getElementById("recordFin");
+const carteFin = document.getElementById("carteTourneFin");
 
 /**
  * Quand on click sur le bouton Fermer la fenêtre le dialog ferme
@@ -114,4 +124,41 @@ cards.forEach(card => card.addEventListener('click',coup));
  */
 function coup(){
   carteTourne.innerText = "Nombre de carte tournée : " + nbcoups;
+}
+
+/**
+ * Valide si il la partie est fini
+ * En regardant si il y a 6 pairs de trouvée
+ * Écrie le record dans le html
+ */
+function validerRecord() {
+  if (nbPair >= 6){
+
+    if (localStorage.getItem('record') === null){
+      localStorage.setItem('record', nbcoups);
+    }
+    
+    if (nbcoups < localStorage.getItem('record')){
+      localStorage.setItem('record', nbcoups);
+    }
+    afficherFin();
+    fin.showModal();
+  }
+}
+
+record.innerText = "Record : " + localStorage.getItem('record');
+
+/**
+ * Recommence le jeu
+ */
+function reinitialiser() {
+  window.location.reload();
+}
+
+/**
+ * Écrie dans le dialog de fin
+ */
+function afficherFin() {
+  carteFin.innerText = nbcoups;
+  recordFin.innerText = localStorage.getItem('record');
 }

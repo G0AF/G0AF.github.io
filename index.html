@@ -89,8 +89,18 @@
   </section>
 
   <div class="compteur">
+    <h1 id="record">Record : 100</h1>
     <h1 id="carteTourne">Nombre de carte tournée : 0</h1>
   </div>
+
+  <dialog id="fin">
+    <h1>Parite terminée</h1>
+    <h2>Record</h2>
+    <h2 id="recordFin">0</h2>
+    <h2>Nombre de cartes tournée</h2>
+    <h2 id="carteTourneFin">0</h2>
+    <button id="recommencer" onclick="reinitialiser()">Recommencer</button>
+  </dialog>
 
   <script src="scripts.js" defer></script>
 </body>
